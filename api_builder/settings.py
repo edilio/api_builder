@@ -145,11 +145,11 @@ DATABASES = {
         # Add "postgresql_psycopg2", "mysql", "sqlite3" or "oracle".
         "ENGINE": "django.db.backends.mysql",
         # DB name or path to database file if using sqlite3.
-        "NAME": "blog_db",
+        "NAME": "",
         # Not used with sqlite3.
-        "USER": "root",
+        "USER": "",
         # Not used with sqlite3.
-        "PASSWORD": "whatever",
+        "PASSWORD": "",
         # Set to empty string for localhost. Not used with sqlite3.
         "HOST": "",
         # Set to empty string for default. Not used with sqlite3.
@@ -180,7 +180,7 @@ STATIC_URL = "/static/"
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = os.path.join(PROJECT_ROOT, STATIC_URL.strip("/"))
+STATIC_ROOT = os.environ.get('STATIC_ROOT')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.

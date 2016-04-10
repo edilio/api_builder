@@ -13,6 +13,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 env_file = os.path.join(BASE_DIR, '.env')
 dotenv.read_dotenv(env_file)
 
+
+ADMINS = (('Edilio', 'edilio73@gmail.com'), )
+# EMAIL Settings
+EMAIL_USE_TLS = bool(int(os.environ.get('EMAIL_USE_TLS', 0)))
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_PORT = int(os.environ.get('EMAIL_PORT') or 587)
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL') or EMAIL_HOST_USER
+DEFAULT_TO_EMAIL = os.environ.get('DEFAULT_TO_EMAIL') or DEFAULT_FROM_EMAIL
+
 ######################
 # MEZZANINE SETTINGS #
 ######################

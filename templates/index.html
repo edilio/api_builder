@@ -30,7 +30,7 @@
         <form action="{% url 'builder:create-api-home' %}" method="POST">{% csrf_token %}
 
             <label>{% trans "Enter Model Name" %}:
-            <input name="model_name"/></label><hr>
+            <input name="model_name" value={{ model_name }}></label><hr>
 
             <div class="col-md-4">
                 <button type="submit" id="create-serializer-modelviewset-url" class="btn btn-primary">{% trans "Generate"%}</button>

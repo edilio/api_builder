@@ -9,19 +9,77 @@
 
 {% block main %}
 {% blocktrans %}
-<h2>Congratulations Edilio!</h2>
-<p>
-    Welcome to your new Mezzanine powered website.
-    Here are some quick links to get you started:
-</p>
-<ul>
-    <li><a href="/admin/">Log in to the admin interface</a></li>
-    <li><a href="http://mezzanine.jupo.org/docs/content-architecture.html">Creating custom page types</a></li>
-    <li><a href="http://mezzanine.jupo.org/docs/frequently-asked-questions.html#templates">Modifying HTML templates</a></li>
-    <li><a href="http://mezzanine.jupo.org/docs/frequently-asked-questions.html#why-isn-t-the-homepage-a-page-object-i-can-edit-via-the-admin">Changing this homepage</a></li>
-    <li><a href="http://mezzanine.jupo.org/docs/frequently-asked-questions.html">Other frequently asked questions</a></li>
-    <li><a href="http://mezzanine.jupo.org/docs/configuration.html#default-settings">Full list of settings</a></li>
-    <li><a href="http://mezzanine.jupo.org/docs/deployment.html">Deploying to a production server</a></li>
-</ul>
+    <div class="container-fluid">
+        <div class="col-md-10"><h2>Rest API Builder</h2></div>
+        <div class="col-md-2"><a href="/hire-me" class="btn btn-success" role="button">Hire Me</a></div>
+    </div>
+
+    <p>
+        Welcome to our Rest API Builder site.
+    </p>
+
+    <div id="'django-rest-framework">
+    This home page is just for helping anybody to create Django Rest Framework APIs. You could learn more about APIs in general, Django Rest Framework in particular and other programming techiques reading <a href="/blog">my blog</a>
+    </div>
+
+    <div>
+    You can use this home page in order to create basic Serializers, basic ModelViewSets and API urls with just entering the model name.
+    </div>
 {% endblocktrans %}
+    <div class="container-fluid">
+        <form action="{% url 'builder:create-api-home' %}" method="POST">{% csrf_token %}
+
+            <label>{% trans "Enter Model Name" %}:
+            <input name="model_name"/></label><hr>
+
+            <div class="col-md-4">
+                <button type="submit" id="create-serializer-modelviewset-url" class="btn btn-primary">{% trans "Generate"%}</button>
+            </div>
+
+        </form>
+    </div>
+    <br/>
+
+    <div class="container-fluid">
+        <div id="serializer">
+            {% if serializer %}
+                <strong>Serializer</strong>
+                {{ serializer | safe | linebreaksbr }}
+                <br/>
+            {% endif %}
+        </div>
+        <div id="view_set">
+            {% if view_set %}
+                <strong>ModelViewSet</strong>
+                {{ view_set | safe | linebreaksbr }}
+                <br/>
+            {% endif %}
+        </div>
+
+        <div id="url">
+            {% if url %}
+                <strong>Url</strong>
+                {{ url | safe | linebreaksbr}}
+                <br/>
+            {% endif %}
+        </div>
+    {% blocktrans %}
+        <p><strong>Hints</strong></p>
+    <p>Remember to put your serializer in your serializers.py file inside your app folder.</p>
+    <p>While your ModelViewSet in your view.py file.</p>
+    <p>And your urls into your urls.py file inside your app folder</p>
+    </div>
+{% endblocktrans %}
+{% endblock %}
+
+{% block footer_js %}
+{% include "includes/footer_scripts.html" %}
+    <script>
+    $( document ).ready(function() {
+        $('#right-panel').hide();
+        $('.user-panel').hide();
+        $('.panel-body').hide();
+
+    });
+    </script>
 {% endblock %}

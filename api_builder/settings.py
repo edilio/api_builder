@@ -5,6 +5,13 @@ import os
 from django import VERSION as DJANGO_VERSION
 from django.utils.translation import ugettext_lazy as _
 
+import dotenv
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# pull env variables from .env
+env_file = os.path.join(BASE_DIR, '.env')
+dotenv.read_dotenv(env_file)
 
 ######################
 # MEZZANINE SETTINGS #

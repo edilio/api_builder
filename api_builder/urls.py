@@ -4,6 +4,7 @@ from django.conf.urls import include, url
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.views.i18n import set_language
+from django.http import HttpResponse
 
 from mezzanine.core.views import direct_to_template
 from mezzanine.conf import settings
@@ -39,6 +40,8 @@ urlpatterns += [
 
     url("^$", direct_to_template, {"template": "index.html"}, name="home"),
     url("^builder/", include('apps.builder.urls', namespace='builder')),
+    url("^robots.txt$", lambda r: HttpResponse("User-agent: *\nDisallow: /tmp/\nDisallow: /cgi-bin/",
+                                               content_type="text/plain")),
 
     # HOMEPAGE AS AN EDITABLE PAGE IN THE PAGE TREE
     # ---------------------------------------------

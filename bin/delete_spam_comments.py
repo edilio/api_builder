@@ -27,7 +27,9 @@ def delete_sex_pill_comments():
     bad = ['levitra', 'cialis', 'viagra', 'prescription', 'buy', 'cheap', 'erectile', 'dysfuntion']
     for b in bad:
         qs_filter |= Q(comment__contains=b)
-    ThreadedComment.objects.filter(qs_filter).delete()
+    qs = ThreadedComment.objects.filter(qs_filter)
+    print "deleting: {} comments".format(qs.count())
+    qs.delete()
 
 
 def main():

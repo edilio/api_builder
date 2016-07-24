@@ -5,10 +5,7 @@ import sys
 
 APP_DIR = os.path.join(os.path.dirname(os.path.realpath(__file__)))
 BASE_DIR = os.path.dirname(APP_DIR)
-print APP_DIR
-print BASE_DIR
 
-print '='*90
 
 sys.path.append(APP_DIR)
 sys.path.append(BASE_DIR)

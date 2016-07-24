@@ -1,4 +1,7 @@
+import requests
+
 from django.shortcuts import render
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -131,5 +134,16 @@ def create_api(request):
         serializer, view_set, url = get_rest_snippets(model_name)
     c = {'model_name':model_name, 'serializer': serializer, 'view_set': view_set, 'url': url}
     return render(request, context=c, template_name='index.html')
+
+
+def proxy(request):
+    qry = request.GET.get('query')
+    data = request.GET.copy()
+    del data['query']
+    r = requests.get(qry, params=data)
+    ret = HttpResponse(content=r.content, status=r.status_code)
+    # ret['access_control_allow_origin'] = '*'
+    # ret["access-control-allow-methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+    return ret
 
 

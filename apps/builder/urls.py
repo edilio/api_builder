@@ -7,4 +7,5 @@ from . import views
 
 urlpatterns = [
     url(r'home$', views.create_api, name='create-api-home'),
+    url(r'proxy', views.proxy, name='proxy'),
 ]

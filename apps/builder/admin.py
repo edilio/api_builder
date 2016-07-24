@@ -28,6 +28,7 @@ class ApplicationAdmin(admin.ModelAdmin):
 class ModelAdmin(admin.ModelAdmin):
     list_display = ('name', 'application')
     list_filter = ('application', )
+    search_fields = ('name',)
 
 
 class FieldParamInline(admin.TabularInline):
@@ -38,5 +39,6 @@ class FieldParamInline(admin.TabularInline):
 class FieldAdmin(admin.ModelAdmin):
     list_display = ('name', 'model', 'field_type')
     list_filter = ('model', )
+    search_fields = ('name', )
 
     inlines = [FieldParamInline, ]

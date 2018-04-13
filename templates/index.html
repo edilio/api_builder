@@ -10,7 +10,7 @@
 {% block main %}
 {% blocktrans %}
     <div class="container-fluid">
-        <div class="col-md-10"><h2>Rest API Builder</h2></div>
+        <div class="col-md-10"><h2 id="rest-api-builder">Rest API Builder</h2></div>
         <div class="col-md-2"><a href="/hire-me" class="btn btn-success" role="button">Hire Me</a></div>
     </div>
 
@@ -18,8 +18,8 @@
         Welcome to our Rest API Builder site.
     </p>
 
-    <div id="'django-rest-framework">
-    This home page is just for helping anybody to create Django Rest Framework APIs. You could learn more about APIs in general, Django Rest Framework in particular and other programming techiques reading <a href="/blog">my blog</a>
+    <div id="django-rest-framework-apis">
+    This home page is just for helping developer to create Django Rest Framework APIs. You could learn more about APIs in general, Django Rest Framework in particular and other programming techiques reading <a href="/blog">my blog</a>
     </div>
 
     <div>
@@ -65,9 +65,13 @@
         </div>
     {% blocktrans %}
         <p><strong>Hints</strong></p>
-    <p>Remember to put your serializer in your serializers.py file inside your app folder.</p>
-    <p>While your ModelViewSet in your view.py file.</p>
-    <p>And your urls into your urls.py file inside your app folder</p>
+    <p>Remember to:</p>
+        <ul>
+            <li>put your serializer in your serializers.py file inside your app folder.</li>
+            <li>put your ModelViewSet in your views.py file.</li>
+            <li>And your urls into your urls.py file inside your app folder</li>
+            <li>You can user swagger for the documentation of your API</li>
+        </ul>
     </div>
 {% endblocktrans %}
 {% endblock %}

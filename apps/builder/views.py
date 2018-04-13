@@ -103,23 +103,38 @@ def pluralize(singular):
 
 def get_rest_snippets(model_name):
     tpl_serializer = """
+    from . import models
+
     class LanguageSerializer(serializers.ModelSerializer):
     &nbsp;&nbsp;&nbsp;&nbsp;class Meta:
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;model = Language
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;model = models.Language
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fields = '__all__'
     """
     serializer = tpl_serializer.replace('Language', model_name).replace('\t', '&nbsp;')
 
     tpl_view = """
+    from rest_framework import serializers
+    from django_filters.rest_framework import DjangoFilterBackend
+    from . import models
+    
     class LanguageViewSet(viewsets.ModelViewSet):
-    &nbsp;&nbsp;&nbsp;&nbsp;model = Language
-    &nbsp;&nbsp;&nbsp;&nbsp;serializer_class = LanguageSerializer
-    &nbsp;&nbsp;&nbsp;&nbsp;queryset = Language.objects.all()
+    &nbsp;&nbsp;&nbsp;&nbsp;model = models.Language
+    &nbsp;&nbsp;&nbsp;&nbsp;serializer_class = serializers.LanguageSerializer
+    &nbsp;&nbsp;&nbsp;&nbsp;queryset = models.Language.objects.all()
+    &nbsp;&nbsp;&nbsp;&nbsp;filter_backends = (DjangoFilterBackend, )
+    &nbsp;&nbsp;&nbsp;&nbsp;filter_fields = ('example_field', )
 """
 
     view_set = tpl_view.replace('Language', model_name)
 
     tpl_urls = """
+    from rest_framework import routers
+    
     router.register(r'languages', views.LanguageViewSet)
+    
+    urlpatterns = []  # add more paths
+
+    urlpatterns += router.urls
     """
     url = pluralize(model_name.lower())
     new_urls = tpl_urls.replace('languages', url).replace('Language', model_name)
@@ -132,7 +147,7 @@ def create_api(request):
     if request.method == 'POST':
         model_name = request.POST.get('model_name') or model_name
         serializer, view_set, url = get_rest_snippets(model_name)
-    c = {'model_name':model_name, 'serializer': serializer, 'view_set': view_set, 'url': url}
+    c = {'model_name': model_name, 'serializer': serializer, 'view_set': view_set, 'url': url}
     return render(request, context=c, template_name='index.html')
 
 
